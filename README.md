@@ -1,21 +1,17 @@
 # Obfuscator
 
-A package to obfuscate CSV files at AWS S3.
+A Python package to obfuscate CSV files at AWS S3. It takes object path and PII fields list as JSON string input and returns object compatible with S3 client PUT method as output.
 
-## Installation
+## Usage
 
-```
-$ git clone https://github.com/odashka/obfuscator
-$ cd obfuscator
-$ pip install .
-```
-
-## Usager
+> [!WARNING]
+> This packagae is not published to the standard Python Package Index (PyPI). You can find pre-built package at GitHub repository [Releases](https://github.com/odashka/obfuscator/releases) page.
 
 ```shell
-pip install obfuscator
-python -c 'from obfuscator import obfuscate; obfuscate("{  \"file_to_obfuscate\": \"s3://bucket/object\", \"pii_fields\": [\"name\", \"email_address\"] }")'
+$ pip install ~/Downloads/obfuscator-1.0.0-py3-none-any.whl
 ```
+
+Make sure AWS credentials are available for Python AWS SDK (`boto3`).
 
 ```python
 from obfuscator import obfuscate
@@ -34,10 +30,10 @@ obfuscate("""
 $ git clone https://github.com/odashka/obfuscator
 $ cd obfuscator
 $ pip install .
-$ python -c 'from obfuscator import obfuscate; obfuscate("{  \"file_to_obfuscate\": \"s3://bucket/object\", \"pii_fields\": [\"name\", \"email_address\"] }")'
+$ python -c "import obfuscator; obfuscator.obfuscate('...')"
 ```
 
-### Logging
+### Debugging
 
 ```shell
 LOG_LEVEL=DEBUG python -c "import obfuscator; obfuscator.obfuscate('...')" 
