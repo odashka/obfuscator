@@ -5,13 +5,16 @@ A package to obfuscate CSV files at AWS S3.
 ## Installation
 
 ```
+$ git clone https://github.com/odashka/obfuscator
+$ cd obfuscator
 $ pip install .
 ```
 
-## Usage
+## Usager
 
 ```shell
 pip install obfuscator
+python -c 'from obfuscator import obfuscate; obfuscate("{  \"file_to_obfuscate\": \"s3://bucket/object\", \"pii_fields\": [\"name\", \"email_address\"] }")'
 ```
 
 ```python
@@ -23,6 +26,15 @@ obfuscate("""
     "pii_fields": ["name", "email_address"]
 }
 """)
+```
+
+## Development
+
+```shell
+$ git clone https://github.com/odashka/obfuscator
+$ cd obfuscator
+$ pip install .
+$ python -c 'from obfuscator import obfuscate; obfuscate("{  \"file_to_obfuscate\": \"s3://bucket/object\", \"pii_fields\": [\"name\", \"email_address\"] }")'
 ```
 
 ### Logging
@@ -80,5 +92,5 @@ $ awslocal s3 cp s3://northcoders/new-data/students_obfuscated.csv - # Check obj
 #### Run all tests with print output
 
 ```
-$ pytest -vvvrP test 
+$ pytest -vvvrP tests
 ```
