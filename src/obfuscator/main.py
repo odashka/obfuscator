@@ -29,7 +29,33 @@ schema = {
 
 
 def obfuscate(input):
-    # TODO: add docstring
+    """
+    Obfuscates specified PII fields in a CSV file stored in S3 and returns the modified content as a bytes buffer object
+    competable with boto3 AWS SDK.
+
+    The function expects a JSON string as input containing the S3 file location and a list of fields to obfuscate.
+    It downloads the CSV file from S3, replaces the values in the specified fields with '***',
+    and returns the modified CSV content as a UTF-8 encoded BytesIO buffer.
+
+    Args:
+        input (str): A JSON string with the following structure:
+            {
+                 "file_to_obfuscate": "s3://bucket/object",
+                 "pii_fields": ["name", "email_address"]
+            }
+
+    Returns:
+        io.BytesIO: A bytes buffer containing the modified CSV data looks like:
+            "student_id,name,course,cohort,graduation_date,email_address
+            ...
+            1234,'***','Software','2024-03-31','***'"
+
+    Raises:
+        json.JSONDecodeError: If the input is not a valid JSON string.
+        jsonschema.ValidationError: If the input does not match the expected schema or empty.
+        s3_client.exceptions.NoSuchKey: If there's no S3 object under the specified path.
+    """
+
     params = json.loads(input)
     jsonschema.validate(params, schema)
     logger.debug(f"pramas: {params}")
