@@ -4,3 +4,9 @@ venv
 *.egg-info/
 build
 dist
+
+
+**/.terraform/*
+*.tfstate
+*.tfstate.backup
+*.zip
