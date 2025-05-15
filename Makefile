@@ -27,6 +27,7 @@ install_deps:
 start_localstack:
 	open -a Docker
 	localstack start -d
+	localstack wait
 	localstack status services
 
 stop_localstack:
@@ -36,7 +37,8 @@ test_unit:
 	pytest tests/unit/test_main.py
 
 test_integration: start_localstack
-	export PYTHONPATH=$$PWD && pytest tests/integration/test_main_localstack.py
+	export PYTHONPATH=${PWD}
+	pytest tests/integration/test_main_localstack.py
 
 test_all: start_localstack
 	pytest -vvvrP tests
