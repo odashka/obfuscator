@@ -22,7 +22,7 @@ install_deps:
 	brew install localstack || true
 	brew install localstack/tap/localstack-cli || true
 	brew install awscli-local || true
-	pip install -e .[dev]
+	pip install -e .[dev,test]
 
 start_localstack:
 	open -a Docker
@@ -34,11 +34,10 @@ stop_localstack:
 	localstack stop
 
 test_unit:
-	pytest tests/unit/test_main.py
+	export PYTHONPATH=${PWD} && pytest tests/unit/test_main.py
 
 test_integration: start_localstack
-	export PYTHONPATH=${PWD}
-	pytest tests/integration/test_main_localstack.py
+	export PYTHONPATH=${PWD} && pytest tests/integration/test_main_localstack.py
 
 test_all: start_localstack
-	pytest -vvvrP tests
+	export PYTHONPATH=${PWD} && pytest -vvvrP tests
